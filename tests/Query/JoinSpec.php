@@ -36,7 +36,7 @@ final class JoinSpec extends ObjectBehavior
 
     public function it_joins_with_default_dql_alias(QueryBuilder $qb): void
     {
-        $qb->join('a.user', 'authUser')->shouldBeCalled();
+        $qb->join('a.user', 'authUser')->shouldBeCalled()->willReturn($qb);
 
         $this->modify($qb, 'a');
     }
@@ -45,11 +45,11 @@ final class JoinSpec extends ObjectBehavior
     {
         $this->beConstructedWith('user', 'authUser', 'x');
 
-        $qb->join('x.user', 'authUser')->shouldBeCalled();
+        $qb->join('x.user', 'authUser')->shouldBeCalled()->willReturn($qb);
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
-        $qb->join('root.x', 'x')->willReturn($qb);
+        $qb->join('root.x', 'x')->willReturn($qb)->willReturn($qb);
 
         $this->modify($qb, 'root');
     }

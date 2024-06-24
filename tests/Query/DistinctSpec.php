@@ -36,7 +36,7 @@ final class DistinctSpec extends ObjectBehavior
 
     public function it_add_having(QueryBuilder $qb): void
     {
-        $qb->distinct()->shouldBeCalled();
+        $qb->distinct()->shouldBeCalled()->willReturn($qb);
         $this->modify($qb, 'a');
     }
 }

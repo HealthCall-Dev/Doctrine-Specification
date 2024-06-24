@@ -32,7 +32,7 @@ final class AsScalarSpec extends ObjectBehavior
 
     public function it_sets_hydration_mode_to_object(AbstractQuery $query): void
     {
-        $query->setHydrationMode(Query::HYDRATE_SCALAR)->shouldBeCalled();
+        $query->setHydrationMode(Query::HYDRATE_SCALAR)->shouldBeCalled()->willReturn($query);
 
         $this->modify($query);
     }
