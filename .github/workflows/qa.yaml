@@ -19,7 +19,7 @@ jobs:
         with:
           php-version: 8.3
           coverage: none
-          tools: cs2pr, phpstan, composer:v2
+          tools: cs2pr, composer:v2
 
       - name: Install Composer dependencies (highest)
         uses: 'ramsey/composer-install@v1'
