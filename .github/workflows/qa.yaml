@@ -28,7 +28,7 @@ jobs:
           composer-options: '--prefer-dist --prefer-stable'
 
       - name: PHPStan
-        run: phpstan analyse --error-format=checkstyle | cs2pr
+        run: vendor/bin/phpstan analyse --error-format=checkstyle | cs2pr
 
   php-cs-fixer:
     name: PHP CS Fixer
