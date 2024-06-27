@@ -76,7 +76,7 @@ final class SelectAsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 'foo', null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 'foo', null)->shouldBeCalled()->willReturn($qb);
 
         $this->transform($qb, $context)->shouldReturn($expression);
     }
@@ -92,7 +92,7 @@ final class SelectAsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 'bar', null)->shouldBeCalled();
+        $qb->setParameter('comparison_10', 'bar', null)->shouldBeCalled()->willReturn($qb);
 
         $this->transform($qb, $context)->shouldReturn($expression);
     }

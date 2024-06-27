@@ -46,7 +46,7 @@ final class SelectNewSpec extends ObjectBehavior
 
     public function it_select_empty_object(QueryBuilder $qb): void
     {
-        $qb->select(sprintf('NEW %s()', Player::class))->shouldBeCalled();
+        $qb->select(sprintf('NEW %s()', Player::class))->shouldBeCalled()->willReturn($qb);
 
         $this->modify($qb, 'a');
     }
@@ -55,7 +55,7 @@ final class SelectNewSpec extends ObjectBehavior
     {
         $this->beConstructedWith(Player::class, 'pseudo');
 
-        $qb->select(sprintf('NEW %s(a.pseudo)', Player::class))->shouldBeCalled();
+        $qb->select(sprintf('NEW %s(a.pseudo)', Player::class))->shouldBeCalled()->willReturn($qb);
 
         $this->modify($qb, 'a');
     }
@@ -67,8 +67,8 @@ final class SelectNewSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 'F', null)->shouldBeCalled();
-        $qb->select(sprintf('NEW %s(a.pseudo, :comparison_10)', Player::class))->shouldBeCalled();
+        $qb->setParameter('comparison_10', 'F', null)->shouldBeCalled()->willReturn($qb);
+        $qb->select(sprintf('NEW %s(a.pseudo, :comparison_10)', Player::class))->shouldBeCalled()->willReturn($qb);
 
         $this->modify($qb, 'a');
     }
@@ -85,8 +85,8 @@ final class SelectNewSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 'F', null)->shouldBeCalled();
-        $qb->select(sprintf('NEW %s(a.pseudo, :comparison_10, (a.foo + a.bar))', Player::class))->shouldBeCalled();
+        $qb->setParameter('comparison_10', 'F', null)->shouldBeCalled()->willReturn($qb);
+        $qb->select(sprintf('NEW %s(a.pseudo, :comparison_10, (a.foo + a.bar))', Player::class))->shouldBeCalled()->willReturn($qb);
 
         $this->modify($qb, 'a');
     }

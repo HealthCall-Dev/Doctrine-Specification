@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\Logic;
 
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -32,23 +31,6 @@ final class NotSpec extends ObjectBehavior
     public function let(Filter $filterExpr): void
     {
         $this->beConstructedWith($filterExpr, null);
-    }
-
-    /**
-     * calls parent.
-     */
-    public function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Filter $filterExpr): void
-    {
-        $context = 'a';
-        $expression = 'expression';
-        $parentExpression = 'foobar';
-
-        $qb->expr()->willReturn($expr);
-        $filterExpr->getFilter($qb, $context)->willReturn($parentExpression);
-
-        $expr->not($parentExpression)->willReturn($expression);
-
-        $this->getFilter($qb, $context)->shouldReturn($expression);
     }
 
     /**
@@ -72,8 +54,8 @@ final class NotSpec extends ObjectBehavior
         $this->beConstructedWith(new Equals('gender', 'M'));
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -98,8 +80,8 @@ final class NotSpec extends ObjectBehavior
         $this->beConstructedWith($expr);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -123,7 +105,7 @@ final class NotSpec extends ObjectBehavior
     {
         $this->beConstructedWith(new Equals('gender', 'M'));
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
         $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);

@@ -41,8 +41,6 @@ use Happyr\DoctrineSpecification\Operand\Operand;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Avg;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Count;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateAdd;
-use Happyr\DoctrineSpecification\Operand\PlatformFunction\DateSub;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Max;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Min;
 use Happyr\DoctrineSpecification\Operand\PlatformFunction\Sum;
@@ -704,34 +702,6 @@ class Spec
     public static function SUM($field, bool $distinct = false): Sum
     {
         return new Sum($field, $distinct);
-    }
-
-    /**
-     * Add the number of days to a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND).
-     *
-     * @param \DateTimeInterface|string|Operand $date
-     * @param int|Operand                       $value
-     * @param string                            $unit
-     *
-     * @return DateAdd
-     */
-    public static function DATE_ADD($date, $value, string $unit): DateAdd
-    {
-        return new DateAdd($date, $value, $unit);
-    }
-
-    /**
-     * Substract the number of days from a given date. (Supported units are YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, SECOND).
-     *
-     * @param \DateTimeInterface|string|Operand $date
-     * @param int|Operand                       $value
-     * @param string                            $unit
-     *
-     * @return DateSub
-     */
-    public static function DATE_SUB($date, $value, string $unit): DateSub
-    {
-        return new DateSub($date, $value, $unit);
     }
 
     /**

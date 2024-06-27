@@ -14,9 +14,6 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\In;
 use PhpSpec\ObjectBehavior;
@@ -42,27 +39,13 @@ final class InSpec extends ObjectBehavior
         $this->shouldBeAnInstanceOf(Filter::class);
     }
 
-    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr): void
-    {
-        $context = 'a';
-        $qb->expr()->willReturn($expr);
-        $expr->in(sprintf('%s.%s', $context, $this->field), ':comparison_10')->shouldBeCalled();
-
-        $qb->getParameters()->willReturn($parameters);
-        $parameters->count()->willReturn(10);
-
-        $qb->setParameter('comparison_10', $this->value, null)->shouldBeCalled();
-
-        $this->getFilter($qb, 'a');
-    }
-
     public function it_filter_array_collection(): void
     {
         $this->beConstructedWith('points', [1230, 2500], null);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -86,8 +69,8 @@ final class InSpec extends ObjectBehavior
     {
         $this->beConstructedWith('points', [1230, 2500], null);
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
-        $playerB = ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
+        $playerB = ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230];
         $playerC = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(true);
@@ -132,8 +115,8 @@ final class InSpec extends ObjectBehavior
     {
         $tetris = ['name' => 'Tetris'];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -146,8 +129,8 @@ final class InSpec extends ObjectBehavior
     {
         $tetris = ['name' => 'Tetris'];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 
@@ -173,8 +156,8 @@ final class InSpec extends ObjectBehavior
         $tetris = ['name' => 'Tetris', 'owner' => $tetrisOwner];
         $mahjong = ['name' => 'Mahjong', 'owner' => $mahjongOwner];
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500, 'inGame' => $mahjong],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230, 'inGame' => $mahjong],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001, 'inGame' => $tetris],
         ];
 

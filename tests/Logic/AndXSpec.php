@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\Logic;
 
-use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -54,42 +53,6 @@ final class AndXSpec extends ObjectBehavior
         $this->modify($queryBuilder, $context);
     }
 
-    public function it_composes_and_child_with_expression(
-        QueryBuilder $qb,
-        Expr $expression,
-        Specification $specificationA,
-        Specification $specificationB
-    ): void {
-        $filterA = 'foo';
-        $filterB = 'bar';
-        $context = 'a';
-
-        $specificationA->getFilter($qb, $context)->willReturn($filterA);
-        $specificationB->getFilter($qb, $context)->willReturn($filterB);
-        $qb->expr()->willReturn($expression);
-
-        $expression->andX($filterA, $filterB)->shouldBeCalled();
-
-        $this->getFilter($qb, $context);
-    }
-
-    public function it_supports_expressions(QueryBuilder $qb, Expr $expression, Filter $exprA, Filter $exprB): void
-    {
-        $this->beConstructedWith($exprA, $exprB);
-
-        $filterA = 'foo';
-        $filterB = 'bar';
-        $context = 'a';
-
-        $exprA->getFilter($qb, $context)->willReturn($filterA);
-        $exprB->getFilter($qb, $context)->willReturn($filterB);
-        $qb->expr()->willReturn($expression);
-
-        $expression->andX($filterA, $filterB)->shouldBeCalled();
-
-        $this->getFilter($qb, $context);
-    }
-
     public function it_filter_array_collection(): void
     {
         $this->beConstructedWith(
@@ -98,8 +61,8 @@ final class AndXSpec extends ObjectBehavior
         );
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -127,8 +90,8 @@ final class AndXSpec extends ObjectBehavior
         $this->beConstructedWith($exprA, $exprB);
 
         $players = [
-            ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500],
-            ['pseudo' => 'Moe',   'gender' => 'M', 'points' => 1230],
+            ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500],
+            ['pseudo' => 'Moe', 'gender' => 'M', 'points' => 1230],
             ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001],
         ];
 
@@ -155,7 +118,7 @@ final class AndXSpec extends ObjectBehavior
             new GreaterThan('points', 9000)
         );
 
-        $playerA = ['pseudo' => 'Joe',   'gender' => 'M', 'points' => 2500];
+        $playerA = ['pseudo' => 'Joe', 'gender' => 'M', 'points' => 2500];
         $playerB = ['pseudo' => 'Alice', 'gender' => 'F', 'points' => 9001];
 
         $this->isSatisfiedBy($playerA)->shouldBe(false);

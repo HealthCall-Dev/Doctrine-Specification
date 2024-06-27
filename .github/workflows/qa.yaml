@@ -17,9 +17,9 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.2
+          php-version: 8.3
           coverage: none
-          tools: cs2pr, phpstan, composer:v2
+          tools: cs2pr, composer:v2
 
       - name: Install Composer dependencies (highest)
         uses: 'ramsey/composer-install@v1'
@@ -28,7 +28,7 @@ jobs:
           composer-options: '--prefer-dist --prefer-stable'
 
       - name: PHPStan
-        run: phpstan analyse --error-format=checkstyle | cs2pr
+        run: vendor/bin/phpstan analyse --error-format=checkstyle | cs2pr
 
   php-cs-fixer:
     name: PHP CS Fixer
@@ -42,7 +42,7 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.3
           coverage: none
           tools: cs2pr, php-cs-fixer
 
