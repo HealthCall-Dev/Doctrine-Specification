@@ -46,7 +46,7 @@ final class CountOfSpec extends ObjectBehavior
     {
         $context = 'a';
 
-        $qb->select(sprintf('COUNT(%s)', $context))->shouldBeCalled()->willReturn($qb);
+        $qb->select(sprintf('COUNT(%s)', $context))->willReturn($qb)->shouldBeCalled();
 
         $this->getFilter($qb, $context)->shouldBe('');
         $this->modify($qb, $context);
@@ -59,8 +59,8 @@ final class CountOfSpec extends ObjectBehavior
 
         $this->beConstructedWith(new GroupBy($field, $context));
 
-        $qb->select('COUNT(root)')->shouldBeCalled()->willReturn($qb);
-        $qb->addGroupBy(sprintf('%s.%s', $context, $field))->shouldBeCalled()->willReturn($qb);
+        $qb->select('COUNT(root)')->willReturn($qb)->shouldBeCalled();
+        $qb->addGroupBy(sprintf('%s.%s', $context, $field))->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -80,9 +80,9 @@ final class CountOfSpec extends ObjectBehavior
 
         $this->beConstructedWith(new Equals($field, $value, $context));
 
-        $qb->select('COUNT(root)')->shouldBeCalled()->willReturn($qb);
+        $qb->select('COUNT(root)')->willReturn($qb)->shouldBeCalled();
         $qb->getParameters()->willReturn(new ArrayCollection());
-        $qb->setParameter($paramName, $value, null)->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter($paramName, $value, null)->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);

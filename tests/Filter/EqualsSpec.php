@@ -42,7 +42,7 @@ final class EqualsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $comparison = $this->getFilter($qb, 'a');
 
@@ -56,7 +56,7 @@ final class EqualsSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(10);
 
-        $qb->setParameter('comparison_10', 18, null)->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_10', 18, null)->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);

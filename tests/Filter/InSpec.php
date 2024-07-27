@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\Filter;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\Func;
+use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Filter;
 use Happyr\DoctrineSpecification\Filter\In;
 use PhpSpec\ObjectBehavior;
@@ -37,6 +41,21 @@ final class InSpec extends ObjectBehavior
     public function it_is_an_expression(): void
     {
         $this->shouldBeAnInstanceOf(Filter::class);
+    }
+
+    public function it_returns_expression_func_object(QueryBuilder $qb, ArrayCollection $parameters, Expr $expr, Func $func): void
+    {
+        $context = 'a';
+        $qb->expr()->willReturn($expr);
+        $expr->in(sprintf('%s.%s', $context, $this->field), ':comparison_10')->willReturn($func);
+        $func->__toString()->willReturn('field IN (:comparison_10)');
+
+        $qb->getParameters()->willReturn($parameters);
+        $parameters->count()->willReturn(10);
+
+        $qb->setParameter('comparison_10', $this->value, null)->willReturn($qb)->shouldBeCalled();
+
+        $this->getFilter($qb, 'a');
     }
 
     public function it_filter_array_collection(): void

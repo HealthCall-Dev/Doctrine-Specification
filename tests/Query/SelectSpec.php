@@ -42,21 +42,21 @@ final class SelectSpec extends ObjectBehavior
 
     public function it_select_single_filed(QueryBuilder $qb): void
     {
-        $qb->select(['a.foo'])->shouldBeCalled()->willReturn($qb);
+        $qb->select(['a.foo'])->willReturn($qb)->shouldBeCalled();
         $this->modify($qb, 'a');
     }
 
     public function it_select_several_fields(QueryBuilder $qb): void
     {
         $this->beConstructedWith('foo', 'bar');
-        $qb->select(['b.foo', 'b.bar'])->shouldBeCalled()->willReturn($qb);
+        $qb->select(['b.foo', 'b.bar'])->willReturn($qb)->shouldBeCalled();
         $this->modify($qb, 'b');
     }
 
     public function it_select_operand(QueryBuilder $qb): void
     {
         $this->beConstructedWith('foo', new Field('bar'));
-        $qb->select(['b.foo', 'b.bar'])->shouldBeCalled()->willReturn($qb);
+        $qb->select(['b.foo', 'b.bar'])->willReturn($qb)->shouldBeCalled();
         $this->modify($qb, 'b');
     }
 }

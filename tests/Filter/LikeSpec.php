@@ -49,7 +49,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_1', '%bar%')->willReturn($qb)->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
     }
@@ -62,7 +62,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar%')->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_1', '%bar%')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -77,7 +77,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar')->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_1', '%bar')->willReturn($qb)->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
     }
@@ -91,7 +91,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', '%bar')->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_1', '%bar')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);
@@ -106,7 +106,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_1', 'bar%')->willReturn($qb)->shouldBeCalled();
 
         $this->getFilter($qb, 'a');
     }
@@ -120,7 +120,7 @@ final class LikeSpec extends ObjectBehavior
         $qb->getParameters()->willReturn($parameters);
         $parameters->count()->willReturn(1);
 
-        $qb->setParameter('comparison_1', 'bar%')->shouldBeCalled()->willReturn($qb);
+        $qb->setParameter('comparison_1', 'bar%')->willReturn($qb)->shouldBeCalled();
 
         $qb->getDQLPart('join')->willReturn([]);
         $qb->getAllAliases()->willReturn([]);

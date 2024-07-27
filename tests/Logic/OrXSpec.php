@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\Logic;
 
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\Orx as ExprOrx;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -50,6 +52,50 @@ final class OrXSpec extends ObjectBehavior
         $specificationB->modify($queryBuilder, $context)->shouldBeCalled();
 
         $this->modify($queryBuilder, $context);
+    }
+
+    public function it_composes_and_child_with_expression(
+        QueryBuilder $qb,
+        Expr $expression,
+        ExprOrx $orX,
+        Specification $specificationA,
+        Specification $specificationB
+    ): void {
+        $filterA = 'foo';
+        $filterB = 'bar';
+        $context = 'a';
+
+        $specificationA->getFilter($qb, $context)->willReturn($filterA);
+        $specificationB->getFilter($qb, $context)->willReturn($filterB);
+        $qb->expr()->willReturn($expression);
+
+        $expression->orX($filterA, $filterB)->willReturn($orX);
+        $orX->__toString()->willReturn('foo OR bar');
+
+        $this->getFilter($qb, $context);
+    }
+
+    public function it_supports_expressions(
+        QueryBuilder $qb,
+        Expr $expression,
+        ExprOrx $orX,
+        Filter $exprA,
+        Filter $exprB
+    ): void {
+        $this->beConstructedWith($exprA, $exprB);
+
+        $filterA = 'foo';
+        $filterB = 'bar';
+        $context = 'a';
+
+        $exprA->getFilter($qb, $context)->willReturn($filterA);
+        $exprB->getFilter($qb, $context)->willReturn($filterB);
+        $qb->expr()->willReturn($expression);
+
+        $expression->orX($filterA, $filterB)->willReturn($orX);
+        $orX->__toString()->willReturn('foo OR bar');
+
+        $this->getFilter($qb, $context);
     }
 
     public function it_filter_array_collection(): void
