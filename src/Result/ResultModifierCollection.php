@@ -40,6 +40,7 @@ final class ResultModifierCollection implements ResultModifier
     public function modify(AbstractQuery $query): void
     {
         foreach ($this->children as $child) {
+            // @phpstan-ignore instanceof.alwaysTrue
             if (!$child instanceof ResultModifier) {
                 throw new InvalidArgumentException(sprintf(
                     'Child passed to ResultModifierCollection must be an instance of %s, but instance of %s found',

@@ -20,11 +20,11 @@ interface Satisfiable
      * @param iterable    $collection
      * @param string|null $context
      *
-     * @return iterable
-     *
      * @phpstan-template T
      *
      * @phpstan-param iterable<T> $collection
+     *
+     * @return iterable
      *
      * @phpstan-return iterable<T>
      */

@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace tests\Happyr\DoctrineSpecification\Logic;
 
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\Func;
 use Doctrine\ORM\QueryBuilder;
 use Happyr\DoctrineSpecification\Filter\Equals;
 use Happyr\DoctrineSpecification\Filter\Filter;
@@ -31,6 +33,24 @@ final class NotSpec extends ObjectBehavior
     public function let(Filter $filterExpr): void
     {
         $this->beConstructedWith($filterExpr, null);
+    }
+
+    /**
+     * calls parent.
+     */
+    public function it_calls_parent_match(QueryBuilder $qb, Expr $expr, Func $func, Filter $filterExpr): void
+    {
+        $context = 'a';
+        $expression = 'expression';
+        $parentExpression = 'foobar';
+
+        $qb->expr()->willReturn($expr);
+        $filterExpr->getFilter($qb, $context)->willReturn($parentExpression);
+
+        $expr->not($parentExpression)->willReturn($func);
+        $func->__toString()->willReturn($expression);
+
+        $this->getFilter($qb, $context)->shouldReturn($expression);
     }
 
     /**

@@ -41,6 +41,7 @@ final class QueryModifierCollection implements QueryModifier
     public function modify(QueryBuilder $qb, string $context): void
     {
         foreach ($this->children as $child) {
+            // @phpstan-ignore instanceof.alwaysTrue
             if (!$child instanceof QueryModifier) {
                 throw new InvalidArgumentException(sprintf(
                     'Child passed to QueryModifierCollection must be an instance of %s, but instance of %s found',
